@@ -55,6 +55,24 @@ class MyShoeList extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      iconSize: 25,
+                      icon: const Icon(Icons.favorite),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      iconSize: 25,
+                      icon: const Icon(Icons.shopping_cart),
+                      onPressed: () {},
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    ),
+                  ],
+                ),
               ],
             ),
           );

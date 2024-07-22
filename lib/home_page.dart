@@ -182,7 +182,7 @@ class MyProfile extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
+              MaterialPageRoute(builder: (context) => MyHomePage()),
             );
           },
         ),
@@ -227,7 +227,7 @@ class MyLikes extends StatelessWidget {
         title: Row(
           children: [
             Image.asset(
-              'assets/nike.png', // Make sure to add your Nike logo image to the assets folder
+              'assets/nike.png',
               height: 50,
             ),
           ],
@@ -237,7 +237,7 @@ class MyLikes extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
+              MaterialPageRoute(builder: (context) => MyHomePage()),
             );
           },
         ),

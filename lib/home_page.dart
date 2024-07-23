@@ -13,11 +13,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<List> likedShoes = [];
+  List<List> cartItems = [];
+
+  //LOGOUT BUTTON
   void _logout() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const MyLoginPage()),
     );
+  }
+
+  //LIKE BUTTON
+  void _toggleLike(List shoe) {
+    setState(() {
+      if (likedShoes.contains(shoe)) {
+        likedShoes.remove(shoe);
+      } else {
+        likedShoes.add(shoe);
+      }
+    });
+  }
+
+  // ADD TO CART
+  void _addToCart(List shoe) {
+    setState(() {
+      cartItems.add(shoe);
+    });
   }
 
   @override
@@ -96,9 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               const SizedBox(height: 10),
-              MyShoeList(
-                shoes: nikeShoes.shoes,
-                images: nikeImages.images,
+              Expanded(
+                child: MyShoeList(
+                  shoes: nikeShoes.shoes,
+                  images: nikeImages.images,
+                ),
               ),
             ],
           ),
@@ -159,6 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// PROFILE PAGE
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
 
@@ -182,7 +207,7 @@ class MyProfile extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
             );
           },
         ),
@@ -214,6 +239,7 @@ class MyProfile extends StatelessWidget {
   }
 }
 
+//LIKES PAGE
 class MyLikes extends StatelessWidget {
   const MyLikes({super.key});
 
@@ -237,7 +263,7 @@ class MyLikes extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
             );
           },
         ),
@@ -245,6 +271,8 @@ class MyLikes extends StatelessWidget {
     );
   }
 }
+
+//ADD TO CART PAGE
 
 class MyAddCart extends StatelessWidget {
   const MyAddCart({super.key});

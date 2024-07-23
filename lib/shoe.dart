@@ -12,8 +12,8 @@ class MyShoeList extends StatefulWidget {
   });
 
   final List<ShoeItem> shoes;
-  final void Function(ShoeItem) onLike;
-  final void Function(ShoeItem) onAddToCart;
+  final Function(ShoeItem) onLike;
+  final Function(ShoeItem) onAddToCart;
   final List<ShoeItem> likedShoes;
   final List<ShoeItem> cartItems;
 
@@ -53,10 +53,8 @@ class _MyShoeListState extends State<MyShoeList> {
                       top: 1,
                       child: IconButton(
                         icon: Icon(
-                          isLiked
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                          color: isLiked ? Colors.red : Colors.blueGrey,
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked ? Colors.red : null,
                         ),
                         onPressed: () => widget.onLike(shoe),
                       ),
@@ -67,8 +65,8 @@ class _MyShoeListState extends State<MyShoeList> {
                         icon: Icon(
                           isInCart
                               ? Icons.shopping_cart
-                              : Icons.add_shopping_cart,
-                          color: isInCart ? Colors.black : Colors.blueGrey,
+                              : Icons.shopping_cart_outlined,
+                          color: isInCart ? Colors.blue : null,
                         ),
                         onPressed: () => widget.onAddToCart(shoe),
                       ),

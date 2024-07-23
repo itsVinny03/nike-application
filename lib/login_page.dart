@@ -6,7 +6,6 @@ import 'package:nike_application/firebase_auth.dart/firebase_auth_services.dart'
 import 'package:nike_application/home_page.dart';
 import 'package:nike_application/sign_up_page.dart';
 
-
 void main() {
   runApp(const MaterialApp(
     home: MyHomePage(),

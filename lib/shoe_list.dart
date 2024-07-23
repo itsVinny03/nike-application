@@ -57,6 +57,20 @@ class ShoeItem {
       'imageUrl': imageUrl,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is ShoeItem &&
+        other.name == name &&
+        other.price == price &&
+        other.category == category &&
+        other.imageUrl == imageUrl;
+  }
+
+  @override
+  int get hashCode =>
+      name.hashCode ^ price.hashCode ^ category.hashCode ^ imageUrl.hashCode;
 }
 
 final ShoeData shoeData = ShoeData([

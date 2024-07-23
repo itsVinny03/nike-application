@@ -12,7 +12,7 @@ class FirebaseAuthService {
       return credential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found" || e.code == "wrong-password") {
-        _showDialog(context, "Invalid email and password.");  
+        _showDialog(context, "Invalid email and password.");
       }
     }
     return null;

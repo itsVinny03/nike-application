@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '701818395387',
     projectId: 'nikeapp-dee31',
     storageBucket: 'nikeapp-dee31.appspot.com',
-    iosClientId: '701818395387-sdc5l8ajlpsv7dfmsv4rq98bqll9cevm.apps.googleusercontent.com',
+    iosClientId:
+        '701818395387-sdc5l8ajlpsv7dfmsv4rq98bqll9cevm.apps.googleusercontent.com',
     iosBundleId: 'com.example.nikeApplication',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '701818395387',
     projectId: 'nikeapp-dee31',
     storageBucket: 'nikeapp-dee31.appspot.com',
-    iosClientId: '701818395387-sdc5l8ajlpsv7dfmsv4rq98bqll9cevm.apps.googleusercontent.com',
+    iosClientId:
+        '701818395387-sdc5l8ajlpsv7dfmsv4rq98bqll9cevm.apps.googleusercontent.com',
     iosBundleId: 'com.example.nikeApplication',
   );
 

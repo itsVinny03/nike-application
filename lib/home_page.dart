@@ -38,7 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
   // ADD TO CART
   void _addToCart(List shoe) {
     setState(() {
-      cartItems.add(shoe);
+      if (cartItems.contains(shoe)) {
+        cartItems.remove(shoe);
+      } else {
+        cartItems.add(shoe);
+      }
     });
   }
 
@@ -67,7 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               IconButton(
                 icon: const Icon(Icons.shopping_cart, color: Colors.black),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyAddCart(cartItems: cartItems)),
+                  );
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.logout, color: Colors.black),
@@ -122,6 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: MyShoeList(
                   shoes: nikeShoes.shoes,
                   images: nikeImages.images,
+                  onLike: _toggleLike,
+                  onAddToCart: _addToCart,
+                  likedShoes: likedShoes,
+                  cartItems: cartItems,
                 ),
               ),
             ],
@@ -171,7 +185,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyLikes()),
+                    MaterialPageRoute(
+                        builder: (context) => MyLikes(likedShoes: likedShoes)),
                   );
                 },
               ),
@@ -241,7 +256,9 @@ class MyProfile extends StatelessWidget {
 
 //LIKES PAGE
 class MyLikes extends StatelessWidget {
-  const MyLikes({super.key});
+  const MyLikes({super.key, required this.likedShoes});
+
+  final List<List> likedShoes;
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +285,54 @@ class MyLikes extends StatelessWidget {
           },
         ),
       ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: likedShoes.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Image.network(
+                    likedShoes[index][0],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    likedShoes[index][0],
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    '${likedShoes[index][1]}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
+                  child: Text(
+                    '${likedShoes[index][2]}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -275,7 +340,9 @@ class MyLikes extends StatelessWidget {
 //ADD TO CART PAGE
 
 class MyAddCart extends StatelessWidget {
-  const MyAddCart({super.key});
+  const MyAddCart({super.key, required this.cartItems});
+
+  final List<List> cartItems;
 
   @override
   Widget build(BuildContext context) {
@@ -283,6 +350,72 @@ class MyAddCart extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: true,
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/nike.png',
+              height: 50,
+            ),
+          ],
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
+            );
+          },
+        ),
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: cartItems.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Image.network(
+                    cartItems[index][0],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    cartItems[index][0],
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    '${cartItems[index][1]}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
+                  child: Text(
+                    '${cartItems[index][2]}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

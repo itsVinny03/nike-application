@@ -5,10 +5,18 @@ class MyShoeList extends StatelessWidget {
     super.key,
     required this.shoes,
     required this.images,
+    required this.onLike,
+    required this.onAddToCart,
+    required this.likedShoes,
+    required this.cartItems,
   });
 
   final List<List> shoes;
   final List<String> images;
+  final Function(List) onLike;
+  final Function(List) onAddToCart;
+  final List<List> likedShoes;
+  final List<List> cartItems;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,8 @@ class MyShoeList extends StatelessWidget {
       ),
       itemCount: shoes.length,
       itemBuilder: (context, index) {
+        bool isLiked = likedShoes.contains(shoes[index]);
+        bool isInCart = cartItems.contains(shoes[index]);
         return Card(
           elevation: 2,
           child: Column(
@@ -40,22 +50,24 @@ class MyShoeList extends StatelessWidget {
                       top: 5,
                       right: 30,
                       child: IconButton(
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.red,
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked ? Colors.red : Colors.grey,
                         ),
-                        onPressed: () {},
+                        onPressed: () => onLike(shoes[index]),
                       ),
                     ),
                     Positioned(
                       top: 5,
                       right: 1,
                       child: IconButton(
-                        icon: const Icon(
-                          Icons.add_shopping_cart,
-                          color: Colors.black,
+                        icon: Icon(
+                          isInCart
+                              ? Icons.remove_shopping_cart
+                              : Icons.add_shopping_cart,
+                          color: isInCart ? Colors.black : Colors.grey,
                         ),
-                        onPressed: () {},
+                        onPressed: () => onAddToCart(shoes[index]),
                       ),
                     ),
                   ],

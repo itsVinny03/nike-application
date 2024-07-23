@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nike_application/shoe_list.dart';
 
 class MyShoeList extends StatefulWidget {
   const MyShoeList({
     super.key,
     required this.shoes,
-    required this.images,
     required this.onLike,
     required this.onAddToCart,
     required this.likedShoes,
     required this.cartItems,
   });
 
-  final List<List> shoes;
-  final List<String> images;
-  final Function(List) onLike;
-  final Function(List) onAddToCart;
-  final List<List> likedShoes;
-  final List<List> cartItems;
+  final List<ShoeItem> shoes;
+  final void Function(ShoeItem) onLike;
+  final void Function(ShoeItem) onAddToCart;
+  final List<ShoeItem> likedShoes;
+  final List<ShoeItem> cartItems;
 
   @override
   State<MyShoeList> createState() => _MyShoeListState();
@@ -33,8 +32,9 @@ class _MyShoeListState extends State<MyShoeList> {
       ),
       itemCount: widget.shoes.length,
       itemBuilder: (context, index) {
-        bool isLiked = widget.likedShoes.contains(widget.shoes[index]);
-        bool isInCart = widget.cartItems.contains(widget.shoes[index]);
+        final shoe = widget.shoes[index];
+        bool isLiked = widget.likedShoes.contains(shoe);
+        bool isInCart = widget.cartItems.contains(shoe);
         return Card(
           elevation: 2,
           child: Column(
@@ -45,9 +45,7 @@ class _MyShoeListState extends State<MyShoeList> {
                   children: [
                     Positioned.fill(
                       child: Image.network(
-                        widget.images[index],
-                        // height: 150,
-                        // width: double.infinity,
+                        shoe.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -59,7 +57,7 @@ class _MyShoeListState extends State<MyShoeList> {
                           isLiked ? Icons.favorite : Icons.favorite_border,
                           color: isLiked ? Colors.red : Colors.grey,
                         ),
-                        onPressed: () => widget.onLike(widget.shoes[index]),
+                        onPressed: () => widget.onLike(shoe),
                       ),
                     ),
                     Positioned(
@@ -72,8 +70,7 @@ class _MyShoeListState extends State<MyShoeList> {
                               : Icons.add_shopping_cart,
                           color: isInCart ? Colors.black : Colors.grey,
                         ),
-                        onPressed: () =>
-                            widget.onAddToCart(widget.shoes[index]),
+                        onPressed: () => widget.onAddToCart(shoe),
                       ),
                     ),
                   ],
@@ -82,26 +79,26 @@ class _MyShoeListState extends State<MyShoeList> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  widget.shoes[index][0],
+                  shoe.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  '${widget.shoes[index][1]}',
+                  shoe.price,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  shoe.category,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(
                 height: 3,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
-                child: Text(
-                  '${widget.shoes[index][2]}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
               ),
             ],
           ),

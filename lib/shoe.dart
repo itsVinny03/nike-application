@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyShoeList extends StatelessWidget {
+class MyShoeList extends StatefulWidget {
   const MyShoeList({
     super.key,
     required this.shoes,
@@ -19,6 +19,11 @@ class MyShoeList extends StatelessWidget {
   final List<List> cartItems;
 
   @override
+  State<MyShoeList> createState() => _MyShoeListState();
+}
+
+class _MyShoeListState extends State<MyShoeList> {
+  @override
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -26,10 +31,10 @@ class MyShoeList extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
-      itemCount: shoes.length,
+      itemCount: widget.shoes.length,
       itemBuilder: (context, index) {
-        bool isLiked = likedShoes.contains(shoes[index]);
-        bool isInCart = cartItems.contains(shoes[index]);
+        bool isLiked = widget.likedShoes.contains(widget.shoes[index]);
+        bool isInCart = widget.cartItems.contains(widget.shoes[index]);
         return Card(
           elevation: 2,
           child: Column(
@@ -40,7 +45,7 @@ class MyShoeList extends StatelessWidget {
                   children: [
                     Positioned.fill(
                       child: Image.network(
-                        images[index],
+                        widget.images[index],
                         // height: 150,
                         // width: double.infinity,
                         fit: BoxFit.cover,
@@ -54,7 +59,7 @@ class MyShoeList extends StatelessWidget {
                           isLiked ? Icons.favorite : Icons.favorite_border,
                           color: isLiked ? Colors.red : Colors.grey,
                         ),
-                        onPressed: () => onLike(shoes[index]),
+                        onPressed: () => widget.onLike(widget.shoes[index]),
                       ),
                     ),
                     Positioned(
@@ -67,7 +72,8 @@ class MyShoeList extends StatelessWidget {
                               : Icons.add_shopping_cart,
                           color: isInCart ? Colors.black : Colors.grey,
                         ),
-                        onPressed: () => onAddToCart(shoes[index]),
+                        onPressed: () =>
+                            widget.onAddToCart(widget.shoes[index]),
                       ),
                     ),
                   ],
@@ -76,14 +82,14 @@ class MyShoeList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  shoes[index][0],
+                  widget.shoes[index][0],
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  '${shoes[index][1]}',
+                  '${widget.shoes[index][1]}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -93,7 +99,7 @@ class MyShoeList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
                 child: Text(
-                  '${shoes[index][2]}',
+                  '${widget.shoes[index][2]}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

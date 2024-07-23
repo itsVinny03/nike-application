@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nike_application/login_page.dart';
 import 'package:nike_application/shoe.dart';
 import 'package:nike_application/shoe_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, this.email = ""});
@@ -15,6 +16,36 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<List> likedShoes = [];
   List<List> cartItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadList();
+  }
+
+  Future<void> _loadList() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      likedShoes = (prefs
+              .getStringList('likedShoes')
+              ?.map((e) => List<String>.from(e.split(',')))
+              .toList() ??
+          []);
+      cartItems = (prefs
+              .getStringList('cartItems')
+              ?.map((e) => List<String>.from(e.split(',')))
+              .toList() ??
+          []);
+    });
+  }
+
+  Future<void> _saveList() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(
+        'likedShoes', likedShoes.map((e) => e.join(',')).toList());
+    await prefs.setStringList(
+        'cartItems', cartItems.map((e) => e.join(',')).toList());
+  }
 
   //LOGOUT BUTTON
   void _logout() {
@@ -32,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         likedShoes.add(shoe);
       }
+      _saveList();
     });
   }
 
@@ -43,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         cartItems.add(shoe);
       }
+      _saveList();
     });
   }
 
@@ -75,7 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyAddCart(cartItems: cartItems)),
+                        builder: (context) => MyAddCart(
+                              cartItems: cartItems,
+                              images: nikeImages.images,
+                            )),
                   );
                 },
               ),
@@ -103,22 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('Low Top'),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('Mid Top'),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('High Top'),
-                      ),
-                    ],
-                  ),
                   IconButton(
                     icon: const Icon(Icons.filter_list, color: Colors.black),
                     onPressed: () {
@@ -186,7 +206,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyLikes(likedShoes: likedShoes)),
+                        builder: (context) => MyLikes(
+                              likedShoes: likedShoes,
+                              images: nikeImages.images,
+                            )),
                   );
                 },
               ),
@@ -255,11 +278,17 @@ class MyProfile extends StatelessWidget {
 }
 
 //LIKES PAGE
-class MyLikes extends StatelessWidget {
-  const MyLikes({super.key, required this.likedShoes});
+class MyLikes extends StatefulWidget {
+  const MyLikes({super.key, required this.likedShoes, required this.images});
 
   final List<List> likedShoes;
+  final List<String> images;
 
+  @override
+  State<MyLikes> createState() => _MyLikesState();
+}
+
+class _MyLikesState extends State<MyLikes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -291,7 +320,7 @@ class MyLikes extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: likedShoes.length,
+        itemCount: widget.likedShoes.length,
         itemBuilder: (context, index) {
           return Card(
             elevation: 2,
@@ -299,22 +328,28 @@ class MyLikes extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Image.network(
-                    likedShoes[index][0],
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.network(
+                          widget.images[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    likedShoes[index][0],
+                    widget.likedShoes[index][0],
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    '${likedShoes[index][1]}',
+                    '${widget.likedShoes[index][1]}',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -324,7 +359,7 @@ class MyLikes extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
                   child: Text(
-                    '${likedShoes[index][2]}',
+                    '${widget.likedShoes[index][2]}',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -340,9 +375,10 @@ class MyLikes extends StatelessWidget {
 //ADD TO CART PAGE
 
 class MyAddCart extends StatelessWidget {
-  const MyAddCart({super.key, required this.cartItems});
+  const MyAddCart({super.key, required this.cartItems, required this.images});
 
   final List<List> cartItems;
+  final List<String> images;
 
   @override
   Widget build(BuildContext context) {
@@ -383,9 +419,15 @@ class MyAddCart extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Image.network(
-                    cartItems[index][0],
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.network(
+                          images[index],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(

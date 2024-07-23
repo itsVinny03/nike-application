@@ -50,25 +50,25 @@ class _MyShoeListState extends State<MyShoeList> {
                       ),
                     ),
                     Positioned(
-                      top: 5,
-                      right: 30,
+                      top: 1,
                       child: IconButton(
                         icon: Icon(
-                          isLiked ? Icons.favorite : Icons.favorite_border,
-                          color: isLiked ? Colors.red : Colors.grey,
+                          isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          color: isLiked ? Colors.red : Colors.blueGrey,
                         ),
                         onPressed: () => widget.onLike(shoe),
                       ),
                     ),
                     Positioned(
-                      top: 5,
-                      right: 1,
+                      top: 25,
                       child: IconButton(
                         icon: Icon(
                           isInCart
-                              ? Icons.remove_shopping_cart
+                              ? Icons.shopping_cart
                               : Icons.add_shopping_cart,
-                          color: isInCart ? Colors.black : Colors.grey,
+                          color: isInCart ? Colors.black : Colors.blueGrey,
                         ),
                         onPressed: () => widget.onAddToCart(shoe),
                       ),

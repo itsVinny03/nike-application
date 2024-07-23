@@ -682,9 +682,22 @@ class _MyLikesState extends State<MyLikes> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Image.network(
-                    shoe.imageUrl,
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.network(
+                          shoe.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: 1,
+                        child: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _unlike(shoe),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
@@ -703,15 +716,11 @@ class _MyLikesState extends State<MyLikes> {
                 ),
                 const SizedBox(height: 3),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     shoe.category,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => _unlike(shoe),
                 ),
               ],
             ),
@@ -789,33 +798,36 @@ class _MyAddCartState extends State<MyAddCart> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          shoe.name,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                      Positioned(
+                        top: 1,
+                        child: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _removeFromCart(shoe),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          shoe.price,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(height: 3),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
-                        child: Text(
-                          shoe.category,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () => _removeFromCart(shoe),
                       ),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    shoe.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    shoe.price,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    shoe.category,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

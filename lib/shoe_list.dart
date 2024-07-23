@@ -104,35 +104,40 @@ final ShoeData shoeData = ShoeData([
       category: "Golf Shoes",
       imageUrl:
           "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/13fbb773-4379-4adf-b527-145384637af6/air-jordan-9-g-golf-shoes-nNqtwL.png"),
+  ShoeItem(
+      name: "Luka 3 PF 'Photo Finish'",
+      price: "₱12,810",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/9469c4fa-c348-42a5-bfb2-4b5206603216/luka-3-pf-photo-finish-basketball-shoes-Mh3NWw.png"),
+  ShoeItem(
+      name: "Air Jordan 9 'Retro Powder Blue'",
+      price: "₱17,489",
+      category: "Men's Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f30fe9b7-8e3b-4728-b212-5f52c0641e11/air-jordan-9-retro-powder-blue-shoes-scTjJd.png"),
+  ShoeItem(
+      name: "Jumpman MVP",
+      price: "₱14,916",
+      category: "Men's Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ebdc8f36-bb8d-44f0-ade5-9b676a54d197/jumpman-mvp-shoes-JV1HCs.png"),
+  ShoeItem(
+      name: "Luka 2 PF",
+      price: "₱13,395",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7a332de6-e409-4ab0-a4b1-882d3bc3808a/luka-2-pf-basketball-shoes-N6gmH9.png"),
+  ShoeItem(
+      name: "Jordan Jumpman",
+      price: "₱3,800",
+      category: "Men's Slides",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1aac5d31-132e-428a-b018-8107537e5e99/jordan-jumpman-slides-2C5ffD.png"),
+  ShoeItem(
+      name: "Jordan Roam",
+      price: "₱4,970",
+      category: "Slides",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/35362810-0bd2-4e49-8be9-972f0ff06b5b/jordan-roam-slides-XsQbqX.png"),
 ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class MyShoes {
-//   final List<List> myShoes = [
-//     ["Tatum 2 Vortex", "205", "Sustainable Materials"],
-//     ["Tatum 2 PF", "235", "Sustainable Materials"],
-//     ["Jordan Delta 3", "185", "Low Top"],
-//   ];
-// }
-
-// class MyImage {
-//   final List<String> imageUrl = [
-//     "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/30648388-71e0-4cd0-b2b3-72e5c458ec58/tatum-2-pf-basketball-shoes-8fp79D.png",
-//     "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/ce8db870-78e9-4de3-be5b-744828105013/tatum-2-sidewalk-chalk-pf-basketball-shoes-SjC3nc.png",
-//     "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d53a40e2-c781-416a-aa91-0434582290da/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png",
-//   ];
-// }

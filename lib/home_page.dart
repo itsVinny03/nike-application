@@ -96,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (likedShoes.contains(shoe)) {
         likedShoes.remove(shoe);
-      } else if (!cartItems.contains(shoe)) {
+      } else {
+        // (!cartItems.contains(shoe))
         likedShoes.add(shoe);
       }
       _updatePreferences();
@@ -107,7 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (cartItems.contains(shoe)) {
         cartItems.remove(shoe);
-      } else if (!likedShoes.contains(shoe)) {
+      } else {
+        //(!likedShoes.contains(shoe))
         cartItems.add(shoe);
       }
       _updatePreferences();

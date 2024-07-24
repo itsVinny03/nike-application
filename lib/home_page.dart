@@ -136,6 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(
         builder: (context) => MyLikes(
           likedShoes: likedShoes,
+          onUnlike: _unlike,
         ),
       ),
     );
@@ -154,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(
         builder: (context) => MyAddCart(
           cartItems: cartItems,
+          onRemoveFromCart: _removeFromCart,
         ),
       ),
     );
@@ -346,9 +348,10 @@ class MyProfile extends StatelessWidget {
 }
 
 class MyLikes extends StatefulWidget {
-  const MyLikes({super.key, required this.likedShoes});
+  const MyLikes({super.key, required this.likedShoes, required this.onUnlike});
 
   final List<ShoeItem> likedShoes;
+  final Function(ShoeItem) onUnlike;
 
   @override
   State<MyLikes> createState() => _MyLikesState();
@@ -358,6 +361,7 @@ class _MyLikesState extends State<MyLikes> {
   void _unlike(ShoeItem shoe) {
     setState(() {
       widget.likedShoes.remove(shoe);
+      widget.onUnlike(shoe);
       // Update preferences
     });
   }
@@ -457,7 +461,9 @@ class _MyLikesState extends State<MyLikes> {
 
 class MyAddCart extends StatefulWidget {
   final List<ShoeItem> cartItems;
-  const MyAddCart({super.key, required this.cartItems});
+  final Function(ShoeItem) onRemoveFromCart;
+  const MyAddCart(
+      {super.key, required this.cartItems, required this.onRemoveFromCart});
 
   @override
   State<MyAddCart> createState() => _MyAddCartState();
@@ -467,6 +473,7 @@ class _MyAddCartState extends State<MyAddCart> {
   void _removeFromCart(ShoeItem shoe) {
     setState(() {
       widget.cartItems.remove(shoe);
+      widget.onRemoveFromCart(shoe);
       // Update preferences
     });
   }

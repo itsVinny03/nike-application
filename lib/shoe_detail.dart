@@ -90,7 +90,7 @@ class _ShoeDetailPageState extends State<ShoeDetailPage> {
                         });
                       },
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
               const SizedBox(height: 20),
@@ -104,7 +104,7 @@ class _ShoeDetailPageState extends State<ShoeDetailPage> {
                             'Added ${widget.shoe.name} of size $selectedSize to the bag!'),
                       ));
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Please select a size first!'),
                       ));
                     }

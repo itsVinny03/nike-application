@@ -29,24 +29,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String email = widget.email;
     setState(() {
-      likedShoes = (jsonDecode(prefs.getString('likedShoes') ?? '[]') as List)
-          .map((item) => ShoeItem.fromJson(item))
-          .toList();
-      cartItems = (jsonDecode(prefs.getString('cartItems') ?? '[]') as List)
-          .map((item) => ShoeItem.fromJson(item))
-          .toList();
+      likedShoes =
+          (jsonDecode(prefs.getString('likedShoes_$email') ?? '[]') as List)
+              .map((item) => ShoeItem.fromJson(item))
+              .toList();
+      cartItems =
+          (jsonDecode(prefs.getString('cartItems_$email') ?? '[]') as List)
+              .map((item) => ShoeItem.fromJson(item))
+              .toList();
     });
   }
 
   Future<void> _updatePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String email = widget.email;
     await prefs.setString(
-      'likedShoes',
+      'likedShoes_$email',
       jsonEncode(likedShoes.map((shoe) => shoe.toJson()).toList()),
     );
     await prefs.setString(
-      'cartItems',
+      'cartItems_$email',
       jsonEncode(cartItems.map((shoe) => shoe.toJson()).toList()),
     );
   }
@@ -70,10 +74,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _clearAccountPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String email = widget.email;
 
     // Clear account-specific preferences
     await prefs.remove('email');
     await prefs.remove('isLoggedIn');
+    await prefs.remove('likedShoes_$email');
+    await prefs.remove('cartItems_$email');
 
     // Navigate to the login page
     Navigator.pushAndRemoveUntil(

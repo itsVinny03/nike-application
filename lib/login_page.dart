@@ -6,6 +6,7 @@ import 'package:nike_application/account_preference.dart';
 import 'package:nike_application/firebase_auth.dart/firebase_auth_services.dart';
 import 'package:nike_application/home_page.dart';
 import 'package:nike_application/sign_up_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -29,6 +30,63 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Simulate a login delay
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Retrieve user inputs
+    final String userEmail = _emailController.text;
+    final String userPassword = _passwordController.text;
+
+    // Here you should validate the user credentials
+    if (_validateCredentials(userEmail, userPassword)) {
+      // Store login status and email in SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('email', userEmail);
+
+      // Navigate to MyHomePage with the user's email
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyHomePage(
+            email: userEmail, // Pass the email here
+          ),
+        ),
+      );
+    } else {
+      // Show error if credentials are invalid
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login Failed'),
+          content: const Text('Invalid email or password. Please try again.'),
+          actions: [
+            TextButton(
+              onPressed: Navigator.of(context).pop,
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  // Simulated credential validation function
+  bool _validateCredentials(String email, String password) {
+    // For demo purposes, any non-empty credentials are considered valid
+    return email.isNotEmpty && password.isNotEmpty;
+  }
 
   @override
   void dispose() {
@@ -220,26 +278,28 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     validator: _passwordValidator,
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton.icon(
-                    onPressed: _submit,
-                    label: const Text(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 17),
-                        'Login'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(color: Colors.black),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 15,
-                      ),
-                    ),
-                  ),
+                  _isLoading
+                      ? const CircularProgressIndicator()
+                      : ElevatedButton.icon(
+                          onPressed: _submit,
+                          label: const Text(
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 17),
+                              'Login'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: const BorderSide(color: Colors.black),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 30,
+                              vertical: 15,
+                            ),
+                          ),
+                        ),
                   const SizedBox(height: 20),
                   const Text('----- Or Sign in with -----'),
                   const SizedBox(height: 20),
@@ -301,144 +361,3 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
   }
 }
-      
-//       Scaffold(
-//         backgroundColor: Colors.white,
-//         appBar: AppBar(
-//           automaticallyImplyLeading: false,
-//           backgroundColor: Colors.white,
-//         ),
-//         body: Padding(
-//           padding: const EdgeInsets.all(30.0),
-//           child: Form(
-//             key: _formKey,
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 Image.asset(
-//                   'assets/nike.png',
-//                   height: 250,
-//                   width: 250,
-//                 ),
-//                 const SizedBox(
-//                   height: 5,
-//                 ),
-//                 const Text(
-//                   "Sign In",
-//                   style: TextStyle(
-//                     fontSize: 24,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 TextFormField(
-//                   controller: _emailController,
-//                   decoration: const InputDecoration(
-//                     border: OutlineInputBorder(),
-//                     label: Text("Enter your Email"),
-//                     labelStyle: TextStyle(color: Colors.black),
-//                     filled: false,
-//                     fillColor: Colors.black,
-//                   ),
-//                   style: const TextStyle(color: Colors.black),
-//                   keyboardType: TextInputType.emailAddress,
-//                   validator: _emailValidator,
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 TextFormField(
-//                   controller: _passwordController,
-//                   decoration: InputDecoration(
-//                     border: const OutlineInputBorder(),
-//                     label: const Text("Enter your Password"),
-//                     labelStyle: const TextStyle(color: Colors.black),
-//                     filled: false,
-//                     fillColor: Colors.black,
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         _passwordVisible
-//                             ? Icons.visibility
-//                             : Icons.visibility_off,
-//                         color: Theme.of(context).canvasColor,
-//                       ),
-//                       onPressed: () {
-//                         setState(() {
-//                           _passwordVisible = !_passwordVisible;
-//                         });
-//                       },
-//                     ),
-//                   ),
-//                   style: const TextStyle(color: Colors.black),
-//                   obscureText: !_passwordVisible,
-//                   validator: _passwordValidator,
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 ElevatedButton.icon(
-//                   onPressed: _signInWithGoogle,
-//                   icon: Image.asset(
-//                     'assets/gicon.png',
-//                     height: 24,
-//                   ),
-//                   label: const Text(
-//                       style: TextStyle(
-//                           color: Colors.black,
-//                           fontWeight: FontWeight.w400,
-//                           fontSize: 17),
-//                       'Google'),
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.white,
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 ElevatedButton.icon(
-//                   onPressed: _submit,
-//                   label: const Text(
-//                       style: TextStyle(
-//                           color: Colors.black,
-//                           fontWeight: FontWeight.normal,
-//                           fontSize: 17),
-//                       'Login'),
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.white,
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 RichText(
-//                   text: TextSpan(
-//                     children: [
-//                       const TextSpan(
-//                           text: "Don't have an account? ",
-//                           style: TextStyle(color: Colors.black, fontSize: 15)),
-//                       TextSpan(
-//                           text: 'Sign  up',
-//                           style: const TextStyle(
-//                             color: Colors.blue,
-//                             fontSize: 15,
-//                             decoration: TextDecoration.underline,
-//                           ),
-//                           recognizer: TapGestureRecognizer()
-//                             ..onTap = () => Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) =>
-//                                         const MySignUpPage()))),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

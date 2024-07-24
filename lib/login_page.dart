@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nike_application/account_preference.dart';
 import 'package:nike_application/firebase_auth.dart/firebase_auth_services.dart';
 import 'package:nike_application/home_page.dart';
 import 'package:nike_application/sign_up_page.dart';
@@ -24,6 +25,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final AccountPreferences _accountPreferences = AccountPreferences();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -47,6 +49,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         if (user != null) {
           if (!mounted)
             return; // Ensure the widget is still mounted before using context
+          await _accountPreferences.saveAccountData(email: email);
           print("User is successfully signed in");
           Navigator.push(
             context,
@@ -82,6 +85,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         UserCredential userCredential =
             await _firebaseAuth.signInWithCredential(credential);
         String email = userCredential.user?.email ?? "";
+        await _accountPreferences.saveAccountData(email: email);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => MyHomePage(email: email),
@@ -117,6 +121,23 @@ class _MyLoginPageState extends State<MyLoginPage> {
   void initState() {
     super.initState();
     _passwordVisible = false;
+    _checkLoginState();
+  }
+
+  void _checkLoginState() async {
+    Map<String, dynamic> accountData =
+        await _accountPreferences.loadAccountData();
+    bool isLoggedIn = accountData['isLoggedIn'] ?? false;
+    String email = accountData['email'] ?? '';
+
+    if (isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyHomePage(email: email),
+        ),
+      );
+    }
   }
 
   String? _emailValidator(String? email) {

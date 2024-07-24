@@ -154,4 +154,70 @@ final ShoeData shoeData = ShoeData([
       category: "Slides",
       imageUrl:
           "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/35362810-0bd2-4e49-8be9-972f0ff06b5b/jordan-roam-slides-XsQbqX.png"),
+  ShoeItem(
+      name: "Jordan 4 High Retro",
+      price: "₱5,805",
+      category: "Men's Slides",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0f61cd4c-8649-43b0-a9ff-d9947bd792be/jordan-hydro-4-retro-slides-QcS72T.png"),
+  ShoeItem(
+      name: "Jordan Post",
+      price: "₱2,873",
+      category: "Men's Slides",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a9d0c205-ba18-4bcc-93df-667bdb8f4d63/jordan-post-slides-l46X9x.png"),
+  ShoeItem(
+      name: "Jordan Super Play Dongdan",
+      price: "₱5,805",
+      category: "Men's Slides",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8d9cfb5c-d3dd-4426-ae3e-5fdcf42e0d51/jordan-super-play-dongdan-slides-Vvms1c.png"),
+  ShoeItem(
+      name: "Jordan Stay Loyal 3",
+      price: "₱11,60",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b9c94fa8-13ff-4c2e-b510-e5321d5ca4f4/jordan-stay-loyal-3-shoes-GNHN2X.png"),
+  ShoeItem(
+      name: "Air Jordan 1 Mid",
+      price: "₱9,906",
+      category: "Men's Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/64689f96-72e6-46c7-817a-55087e2a1fe4/air-jordan-1-mid-shoes-SQf7DM.png"),
+  ShoeItem(
+      name: "Zion 3 PF",
+      price: "₱8,149",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e4b6f79a-ca9b-4aa3-9c70-04f5e0f58ac5/zion-3-pf-basketball-shoes-vTjpz4.png"),
+  ShoeItem(
+      name: "Air Jordan Legacy 312 Low",
+      price: "₱13,426",
+      category: "Men's Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/20624013-bc13-42d8-8819-6fee3e87f9a7/air-jordan-legacy-312-low-shoes-6Vd4Xl.png"),
+  ShoeItem(
+      name: "Air Jordan XXXVIII Low PF",
+      price: "₱16,121",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/cbfcf081-33b5-4212-bb0e-cfab6e6d5786/air-jordan-xxxviii-low-pf-basketball-shoes-2lBnKn.png"),
+  ShoeItem(
+      name: "Tatum 1 'Denim' F",
+      price: "₱12,017",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6d59671e-2b39-4e33-b71b-7f8a8e8d9478/tatum-1-denim-pf-basketball-shoes-z5qKCZ.png"),
+  ShoeItem(
+      name: "Jordan One Take 5 PF",
+      price: "₱9,673",
+      category: "Basketball Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/157781a3-6f9c-4220-8607-03f7544e201a/jordan-one-take-5-pf-basketball-shoes-QQ243j.png"),
+  ShoeItem(
+      name: "Air Jordan 1 Mid",
+      price: "₱12,249",
+      category: "Men's Shoes",
+      imageUrl:
+          "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/0dde9946-f6fd-4a13-a149-1c2f11ca0b11/air-jordan-1-mid-shoes-SQf7DM.png")
 ]);

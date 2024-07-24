@@ -239,6 +239,18 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ShoeItem> likedShoes = [];
   List<ShoeItem> cartItems = [];
 
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   _auth.authStateChanges().listen((User? user)){
+  //     if(user == null) {
+  //       MaterialPageRoute;
+  //     } else {
+  //       MaterialPageRoute;
+  //     }
+  //   };
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -269,10 +281,37 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _logout() {
-    Navigator.pushReplacement(
+  void _logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Clear account-specific preferences
+    await prefs.remove('email');
+    await prefs.remove('isLoggedIn');
+
+    // Navigate to the login page
+    Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const MyLoginPage()),
+      MaterialPageRoute(
+        builder: (context) => const MyLoginPage(),
+      ),
+      (Route<dynamic> route) => false, // Remove all previous routes
+    );
+  }
+
+  void _clearAccountPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Clear account-specific preferences
+    await prefs.remove('email');
+    await prefs.remove('isLoggedIn');
+
+    // Navigate to the login page
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MyLoginPage(),
+      ),
+      (Route<dynamic> route) => false, // Remove all previous routes
     );
   }
 
@@ -373,7 +412,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               IconButton(
                 icon: const Icon(Icons.logout, color: Colors.black),
-                onPressed: _logout,
+                onPressed: () => _logout(context),
               ),
             ],
           ),
